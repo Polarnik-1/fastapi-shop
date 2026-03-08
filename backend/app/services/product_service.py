@@ -24,7 +24,6 @@ class ProductService:
             )
         return ProductResponse.model_validate(product)
 
-
     def get_products_by_category(self, category_id: int) -> ProductListResponse:
         category = self.category_repository.get_by_id(category_id)
         if not category:
@@ -47,9 +46,6 @@ class ProductService:
 
         product = self.product_repository.create(product_data)
         return ProductResponse.model_validate(product)
-
-
-
 
 
 

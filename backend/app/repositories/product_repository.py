@@ -3,12 +3,13 @@ from typing import List, Optional
 from ..models.product import Product
 from ..schemas.product import ProductCreate
 
+
 class ProductRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def get_all(self) -> List[Product]:
-        return self.db.query(Product).options(joinedload(Product.category)).all() # type: ignore БААААН
+    def get_all(self) -> list[type[Product]]:
+        return self.db.query(Product).options(joinedload(Product.category)).all()
 
     def get_by_id(self, product_id: int) -> Optional[Product]:
         return (
@@ -18,10 +19,13 @@ class ProductRepository:
             .first()
         )
 
-    def get_by_category(self, category_id: int) -> List[Product]:
-        return (self.db.query(Product) # type: ignore БААААН
-            .options(joinedload(Product.category)) # type: ignore БААААН
-            .filter(Product.category_id == category_id).all()) # type: ignore БААААН
+    def get_by_category(self, category_id: int) -> list[type[Product]]:
+        return (
+            self.db.query(Product)
+            .options(joinedload(Product.category))
+            .filter(Product.category_id == category_id)
+            .all()
+        )
 
     def create(self, product_data: ProductCreate) -> Product:
         db_product = Product(**product_data.model_dump())
@@ -30,10 +34,17 @@ class ProductRepository:
         self.db.refresh(db_product)
         return db_product
 
-    def get_multiple_by_ids(self, product_ids: List[int]) -> List[Product]:
-        return ( # type: ignore БААААН
-            self.db.query(Product) # type: ignore БААААН
-            .options(joinedload(Product.category)) # type: ignore БААААН
-            .filter(Product.id.in_(product_ids)) # type: ignore БААААН
-            .all() # type: ignore БААААН
-        ) # type: ignore БААААН
+    def get_multiple_by_ids(self, product_ids: List[int]) -> list[type[Product]]:
+        return (
+            self.db.query(Product)
+            .options(joinedload(Product.category))
+            .filter(Product.id.in_(product_ids))
+            .all()
+        )
+
+
+
+
+
+
+    #List[Product]
