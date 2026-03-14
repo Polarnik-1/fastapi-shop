@@ -21,10 +21,10 @@ def create_categories(db):
         dict: Словарь созданных категорий {slug: Category}
     """
     categories_data = [
-        {"name": "Electronics", "slug": "electronics"},
-        {"name": "Clothing", "slug": "clothing"},
-        {"name": "Books", "slug": "books"},
-        {"name": "Home & Garden", "slug": "home-garden"},
+        {"name": "Электроника", "slug": "electronics"},
+
+        {"name": "Книги", "slug": "books"},
+        {"name":"Канцелярские принадлежности", "slug":"konzel"}
     ]
 
     categories = {}
@@ -52,104 +52,92 @@ def create_products(db, categories):
     """
     products_data = [
         # Electronics
+
+
         {
-            "name": "Wireless Headphones",
-            "description": "High-quality wireless headphones with noise cancellation. Perfect for music lovers and professionals. Battery life up to 30 hours.",
-            "price": 299.99,
+            "name": "Подставка для ноутбуку",
+            "description": "Подставка для ноутбука и планшета портативная, алюминиевая, складная с регулировкой высоты и угла на стол.",
+            "price": 9.99,
             "category_id": categories["electronics"].id,
-            "image_url": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400"
-        },
-        {
-            "name": "Smart Watch Pro",
-            "description": "Advanced smartwatch with fitness tracking, heart rate monitor, and GPS. Water resistant up to 50m. Compatible with iOS and Android.",
-            "price": 399.99,
-            "category_id": categories["electronics"].id,
-            "image_url": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"
-        },
-        {
-            "name": "Laptop Stand",
-            "description": "Ergonomic aluminum laptop stand. Adjustable height and angle. Improves posture and reduces neck strain. Compatible with all laptop sizes.",
-            "price": 49.99,
-            "category_id": categories["electronics"].id,
-            "image_url": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400"
+            "image_url": "https://cdn1.ozone.ru/s3/multimedia-g/6350696284.jpg"
         },
         {
             "name": "USB-C Hub",
-            "description": "Multi-port USB-C hub with HDMI, USB 3.0, and SD card reader. Fast data transfer and 4K video output. Compact design perfect for travel.",
-            "price": 79.99,
+            "description": "USB-разветвитель Ugreen CM473 позволяет увеличить количество доступных USB-разъемов. Устройство особенно полезно при наличии ноутбуков, ПК или моноблоков, в которых не хватает выходов для подсоединения всей необходимой периферии..",
+            "price": 10.99,
             "category_id": categories["electronics"].id,
-            "image_url": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=400"
+            "image_url": "https://static.re-store.ru/upload/resize_cache/iblock/297/100500_800_140cd750bba9870f18aada2478b24840a/fiwfhshdycl0g94lwytgpera8bdyny4f.jpg"
         },
         {
-            "name": "Wireless Keyboard",
+            "name": "Type-c",
             "description": "Compact wireless keyboard with mechanical switches. Long battery life and ergonomic design. Perfect for both work and gaming.",
-            "price": 89.99,
+            "price": 4.99,
             "category_id": categories["electronics"].id,
-            "image_url": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400"
+            "image_url": "https://ir.ozone.ru/s3/multimedia-1-b/7077794123.jpg"
         },
 
-        # Clothing
-        {
-            "name": "Running Shoes",
-            "description": "Comfortable running shoes with excellent cushioning. Breathable mesh upper and durable rubber sole. Perfect for jogging and gym workouts.",
-            "price": 129.99,
-            "category_id": categories["clothing"].id,
-            "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400"
-        },
+
 
         # Books
         {
-            "name": "Python Programming Guide",
-            "description": "Comprehensive guide to Python programming. From basics to advanced topics. Includes practical examples and exercises. Perfect for beginners and intermediate programmers.",
-            "price": 45.99,
+            "name": "Мёртвые Души",
+            "description": "«Мертвые души» — произведение Николая Васильевича Гоголя, жанр которого сам автор обозначил как поэму. Изначально задумано как трёхтомное произведение. Первый том был издан в 1842 году. Практически готовый второй том был утерян, но сохранилось несколько глав в черновиках. Третий том был задуман и не начат, о нём остались только отдельные сведения.",
+            "price": 2.99,
             "category_id": categories["books"].id,
-            "image_url": "https://images.unsplash.com/photo-1589998059171-988d887df646?w=400"
+            "image_url": "https://content.img-gorod.ru/pim/products/images/10/50/0199eace-bab7-7c01-b32b-6cfd9e6c1050.jpg"
         },
         {
-            "name": "The Art of Design",
-            "description": "Inspirational book about design principles and creative thinking. Beautiful illustrations and case studies from famous designers.",
-            "price": 39.99,
+            "name": "Преступление и наказание",
+            "description": "«Преступление и наказание» — гениальный роман, главные темы которого: преступление и наказание, жертвенность и любовь, свобода и гордость человека — обрамлены почти детективным сюжетом. Многократно экранизированный и не раз поставленный на сцене, он и по сей день читается на одном дыхании.",
+            "price": 2.99,
             "category_id": categories["books"].id,
-            "image_url": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"
+            "image_url": "https://avatars.mds.yandex.net/get-mpic/5426148/img_id3824017904095478322.jpeg/orig"
         },
         {
-            "name": "Cooking Masterclass",
-            "description": "Professional cooking techniques and recipes. Step-by-step instructions with beautiful photography. Learn from world-class chefs.",
-            "price": 49.99,
+            "name": "Отцы и Дети",
+            "description": "Отцы и дети — знаменитый роман Тургенева, ставший чуть ли не самым значительным произведением в истории о взаимоотношениях поколений. Споры главного героя Евгения Базарова, называающего себя нигилистом и отрицающего расхожие представления о жизни, искусстве, морали, природе человека, и его антагониста Павла Кирсанова, аристократа до мозга костей, состаляют главную проблематику романа.",
+            "price": 2.99,
             "category_id": categories["books"].id,
-            "image_url": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400"
+            "image_url": "https://ir.ozone.ru/s3/multimedia-1-t/7557603833.jpg"
         },
 
-        # Home & Garden
         {
-            "name": "Plant Pot Set",
-            "description": "Set of 3 ceramic plant pots with drainage holes. Modern design perfect for indoor plants. Includes saucers to protect furniture.",
-            "price": 34.99,
-            "category_id": categories["home-garden"].id,
-            "image_url": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400"
+            "name": "Набор ручек",
+            "description": "Элегантный, стильный, практичный, деловой, оригинальный, изящный, представительный, компактный, качественный, фирменный, классический, удобный, дорогой, эксклюзивный, универсальный набор ручек",
+            "price": 1.99,
+            "category_id": categories["konzel"].id,
+            "image_url": "https://cdn.metro-cc.ru/ru/ru_pim_389677001001_01.png"
         },
+
+
+
         {
-            "name": "LED Desk Lamp",
-            "description": "Adjustable LED desk lamp with touch control. Multiple brightness levels and color temperatures. Energy efficient and eye-friendly.",
-            "price": 59.99,
-            "category_id": categories["home-garden"].id,
-            "image_url": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400"
+            "name": "Набор карандашей",
+            "description": "Яркий, мягкий, точный, идеальный, насыщенный, натуральный, тёплый, уютный, разнообразный, выразительный набор карандашей",
+            "price": 1.99,
+            "category_id": categories["konzel"].id,
+            "image_url": "https://ir.ozone.ru/s3/multimedia-y/6269441890.jpg"
         },
+
+
+
         {
-            "name": "Throw Pillow Set",
-            "description": "Set of 2 decorative throw pillows. Soft and comfortable with removable covers. Perfect for sofa or bed decoration.",
-            "price": 39.99,
-            "category_id": categories["home-garden"].id,
-            "image_url": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400"
+            "name": "Набор линеек",
+            "description": "Слишком крутые линейки",
+            "price": 1.5,
+            "category_id": categories["konzel"].id,
+            "image_url": "https://i.yapx.ru/dKBue.jpg"
         },
-        {
-            "name": "Garden Tool Kit",
-            "description": "Complete garden tool kit with 10 essential tools. Durable stainless steel construction. Includes carrying bag for easy storage.",
-            "price": 79.99,
-            "category_id": categories["home-garden"].id,
-            "image_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400"
-        },
+
+
+
+
     ]
+
+
+
+
+
 
     for product_data in products_data:
         product = Product(**product_data)
@@ -198,5 +186,67 @@ def seed_database():
         db.close()
 
 
+
+
+    print("✅ Tables cleared")
+
+
+def clear_database(db):
+    """
+    Удаляет все товары и категории из базы данных.
+
+    Args:
+        db: Сессия SQLAlchemy
+    """
+    print("🧹 Clearing existing data...")
+    try:
+        # Сначала удаляем товары (Foreign Key зависимость)
+        num_products = db.query(Product).delete()
+        # Затем удаляем категории
+        num_categories = db.query(Category).delete()
+
+        db.commit()
+        print(f"✅ Deleted {num_products} products and {num_categories} categories.")
+    except Exception as e:
+        db.rollback()
+        print(f"❌ Error during clearing: {e}")
+        raise
+
+
+
+def seed_database1(force_clear=False):
+    """
+    Главная функция для заполнения базы данных.
+
+    Args:
+        force_clear (bool): Если True, сначала очистит БД.
+    """
+    print("🚀 Starting database seeding...")
+    init_db()
+    db = SessionLocal()
+
+    try:
+        if force_clear:
+            clear_database(db)
+
+        # Проверяем наличие данных, если не была вызвана принудительная очистка
+        if not force_clear and db.query(Category).count() > 0:
+            print("⚠️  Database already contains data. Use force_clear=True to reset.")
+            return
+
+        # ... (далее ваш код создания категорий и продуктов)
+        categories = create_categories(db)
+        create_products(db, categories)
+
+        print("🎉 Database seeding completed successfully!")
+
+    except Exception as e:
+        print(f"❌ Error during seeding: {e}")
+        db.rollback()
+    finally:
+        db.close()
+
+
 if __name__ == "__main__":
-    seed_database()
+    # Вы можете менять этот флаг на True, если хотите пересоздать данные
+    seed_database1(force_clear=True)

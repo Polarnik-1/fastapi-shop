@@ -43,13 +43,13 @@
         :disabled="adding"
         class="w-full bg-black text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
       >
-        {{ adding ? 'Adding...' : 'Add to Cart' }}
+        {{ adding ? 'Adding...' : 'Добавить в корзину' }}
       </button>
 
       <!-- Уведомление об успешном добавлении -->
       <transition name="fade">
         <div v-if="showNotification" class="mt-2 text-sm text-green-600 text-center font-medium">
-          ✓ Added to cart!
+          ✓ Добавлено в корзину!
         </div>
       </transition>
     </div>

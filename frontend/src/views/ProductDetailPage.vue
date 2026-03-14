@@ -26,13 +26,13 @@
             d="M15 19l-7-7 7-7"
           />
         </svg>
-        Back to catalog
+        Вернутся к каталогу
       </button>
 
       <!-- Состояние загрузки -->
       <div v-if="loading" class="text-center py-16">
         <div class="inline-block animate-spin rounded-full h-14 w-14 border-b-4 border-black"></div>
-        <p class="mt-4 text-lg text-gray-500">Loading product...</p>
+        <p class="mt-4 text-lg text-gray-500">Загрузка продуктов...</p>
       </div>
 
       <!-- Ошибка -->
@@ -81,7 +81,7 @@
 
             <!-- Описание -->
             <div class="mb-8">
-              <h2 class="text-xl font-bold text-black mb-3">Description</h2>
+              <h2 class="text-xl font-bold text-black mb-3">Описание</h2>
               <p class="text-gray-600 leading-relaxed">
                 {{ product.description || 'No description available.' }}
               </p>
@@ -94,7 +94,7 @@
                 :disabled="adding"
                 class="w-full bg-black text-white py-4 px-6 text-lg font-semibold rounded-none hover:bg-gray-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {{ adding ? 'Adding to cart...' : 'Add to Cart' }}
+                {{ adding ? 'Adding to cart...' : 'Добавить в корзину' }}
               </button>
 
               <!-- Уведомление об успешном добавлении -->
@@ -103,7 +103,7 @@
                   v-if="showNotification"
                   class="mt-4 bg-black text-white px-4 py-3 rounded-none text-center font-medium"
                 >
-                  ✓ Product added to cart!
+                  ✓ Продукт добавлен в корзину!
                 </div>
               </transition>
             </div>

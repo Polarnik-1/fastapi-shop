@@ -9,8 +9,8 @@
     <div class="max-w-7xl mx-auto px-4 py-8">
       <!-- Заголовок -->
       <div class="mb-8">
-        <h1 class="text-4xl font-extrabold text-black mb-2">Product Catalog</h1>
-        <p class="text-gray-500">Discover our amazing products</p>
+        <h1 class="text-4xl font-extrabold text-black mb-2">Каталог продуктов</h1>
+        <p class="text-gray-500">Продукты</p>
       </div>
 
       <div class="flex gap-8">
@@ -25,7 +25,7 @@
           <div class="mb-6 flex items-center justify-between">
             <p class="text-gray-700">
               <span class="font-bold">{{ productsStore.productsCount }}</span>
-              {{ productsStore.productsCount === 1 ? 'product' : 'products' }} found
+              {{ productsStore.productsCount === 1 ? 'продуктов' : 'продуктов' }} найдено
             </p>
 
             <!-- Кнопка сброса фильтра -->
@@ -34,7 +34,7 @@
               @click="productsStore.clearCategoryFilter"
               class="text-sm text-gray-500 hover:text-black transition-colors font-medium"
             >
-              Clear filter
+              Отчистить фильтр
             </button>
           </div>
 
@@ -43,7 +43,7 @@
             <div
               class="inline-block animate-spin rounded-none h-12 w-12 border-b-2 border-black"
             ></div>
-            <p class="mt-4 text-gray-500">Loading products...</p>
+            <p class="mt-4 text-gray-500">Загрузка продуктов...</p>
           </div>
 
           <!-- Ошибка -->
