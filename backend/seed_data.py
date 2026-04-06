@@ -57,21 +57,21 @@ def create_products(db, categories):
         {
             "name": "Подставка для ноутбуку",
             "description": "Подставка для ноутбука и планшета портативная, алюминиевая, складная с регулировкой высоты и угла на стол.",
-            "price": 9.99,
+            "price": 700,
             "category_id": categories["electronics"].id,
             "image_url": "https://cdn1.ozone.ru/s3/multimedia-g/6350696284.jpg"
         },
         {
             "name": "USB-C Hub",
             "description": "USB-разветвитель Ugreen CM473 позволяет увеличить количество доступных USB-разъемов. Устройство особенно полезно при наличии ноутбуков, ПК или моноблоков, в которых не хватает выходов для подсоединения всей необходимой периферии..",
-            "price": 10.99,
+            "price": 4000,
             "category_id": categories["electronics"].id,
             "image_url": "https://static.re-store.ru/upload/resize_cache/iblock/297/100500_800_140cd750bba9870f18aada2478b24840a/fiwfhshdycl0g94lwytgpera8bdyny4f.jpg"
         },
         {
             "name": "Type-c",
             "description": "Compact wireless keyboard with mechanical switches. Long battery life and ergonomic design. Perfect for both work and gaming.",
-            "price": 4.99,
+            "price": 150,
             "category_id": categories["electronics"].id,
             "image_url": "https://ir.ozone.ru/s3/multimedia-1-b/7077794123.jpg"
         },
@@ -82,21 +82,21 @@ def create_products(db, categories):
         {
             "name": "Мёртвые Души",
             "description": "«Мертвые души» — произведение Николая Васильевича Гоголя, жанр которого сам автор обозначил как поэму. Изначально задумано как трёхтомное произведение. Первый том был издан в 1842 году. Практически готовый второй том был утерян, но сохранилось несколько глав в черновиках. Третий том был задуман и не начат, о нём остались только отдельные сведения.",
-            "price": 2.99,
+            "price": 300,
             "category_id": categories["books"].id,
             "image_url": "https://content.img-gorod.ru/pim/products/images/10/50/0199eace-bab7-7c01-b32b-6cfd9e6c1050.jpg"
         },
         {
             "name": "Преступление и наказание",
             "description": "«Преступление и наказание» — гениальный роман, главные темы которого: преступление и наказание, жертвенность и любовь, свобода и гордость человека — обрамлены почти детективным сюжетом. Многократно экранизированный и не раз поставленный на сцене, он и по сей день читается на одном дыхании.",
-            "price": 2.99,
+            "price": 300,
             "category_id": categories["books"].id,
             "image_url": "https://avatars.mds.yandex.net/get-mpic/5426148/img_id3824017904095478322.jpeg/orig"
         },
         {
             "name": "Отцы и Дети",
             "description": "Отцы и дети — знаменитый роман Тургенева, ставший чуть ли не самым значительным произведением в истории о взаимоотношениях поколений. Споры главного героя Евгения Базарова, называающего себя нигилистом и отрицающего расхожие представления о жизни, искусстве, морали, природе человека, и его антагониста Павла Кирсанова, аристократа до мозга костей, состаляют главную проблематику романа.",
-            "price": 2.99,
+            "price": 300,
             "category_id": categories["books"].id,
             "image_url": "https://ir.ozone.ru/s3/multimedia-1-t/7557603833.jpg"
         },
@@ -104,9 +104,9 @@ def create_products(db, categories):
         {
             "name": "Набор ручек",
             "description": "Элегантный, стильный, практичный, деловой, оригинальный, изящный, представительный, компактный, качественный, фирменный, классический, удобный, дорогой, эксклюзивный, универсальный набор ручек",
-            "price": 1.99,
+            "price": 50,
             "category_id": categories["konzel"].id,
-            "image_url": "https://cdn.metro-cc.ru/ru/ru_pim_389677001001_01.png"
+            "image_url": "https://ir.ozone.ru/multimedia/1017443546.jpg"
         },
 
 
@@ -114,7 +114,7 @@ def create_products(db, categories):
         {
             "name": "Набор карандашей",
             "description": "Яркий, мягкий, точный, идеальный, насыщенный, натуральный, тёплый, уютный, разнообразный, выразительный набор карандашей",
-            "price": 1.99,
+            "price": 50,
             "category_id": categories["konzel"].id,
             "image_url": "https://ir.ozone.ru/s3/multimedia-y/6269441890.jpg"
         },
@@ -124,9 +124,9 @@ def create_products(db, categories):
         {
             "name": "Набор линеек",
             "description": "Слишком крутые линейки",
-            "price": 1.5,
+            "price": 50,
             "category_id": categories["konzel"].id,
-            "image_url": "https://i.yapx.ru/dKBue.jpg"
+            "image_url": "https://basket-25.wbbasket.ru/vol4469/part446958/446958298/images/big/1.webp"
         },
 
 

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ars Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Эффект при наведении на большую карточку */
+        .product-card:hover { transform: translateY(-8px); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
+        .modal-animate { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .category-item { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800">
+
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm p-5 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-black text-blue-600 tracking-tighter">ARS SHOP</h1>
+            <button onclick="toggleCart()" class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 active:scale-95">
+                Корзина <span id="cart-count" class="ml-2 bg-white text-blue-600 px-2 py-0.5 rounded-full text-sm">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-6">
+        <div class="flex flex-col lg:flex-row gap-10">
+            <aside class="w-full lg:w-1/4">
+                <div class="bg-white p-6 rounded-3xl shadow-sm sticky top-28">
+                    <h3 class="font-black text-xl mb-6 uppercase tracking-widest text-gray-400 text-sm">Категории</h3>
+                    <ul id="categories-list" class="space-y-2">
+                        </ul>
+                </div>
+            </aside>
+
+            <main class="w-full lg:w-3/4">
+                <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="product-modal" class="fixed inset-0 bg-black/70 hidden z-[60] flex items-center justify-center p-4 backdrop-blur-md" onclick="closeProductModal()">
+        <div class="bg-white rounded-[40px] max-w-5xl w-full overflow-hidden shadow-2xl modal-animate flex flex-col md:flex-row" onclick="event.stopPropagation()">
+            <div class="md:w-1/2 h-[400px] md:h-[600px] bg-gray-100">
+                <img id="modal-img" src="" class="w-full h-full object-cover" alt="">
+            </div>
+            <div class="md:w-1/2 p-12 flex flex-col">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 id="modal-title" class="text-4xl font-black text-gray-900 leading-tight"></h2>
+                    <button onclick="closeProductModal()" class="text-gray-300 hover:text-gray-900 text-3xl transition">✕</button>
+                </div>
+                <p id="modal-desc" class="text-lg text-gray-500 mb-10 leading-relaxed flex-grow"></p>
+                <div class="flex items-center justify-between pt-8 border-t border-gray-100">
+                    <span id="modal-price" class="text-4xl font-black text-blue-600"></span>
+                    <button id="modal-buy-btn" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition transform active:scale-95 shadow-xl shadow-blue-100">
+                        В корзину
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 hidden z-[70] flex items-center justify-end" onclick="toggleCart()">
+        <div class="bg-white h-full w-full max-w-md p-8 shadow-2xl flex flex-col" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-3xl font-black">Корзина</h2>
+                <button onclick="toggleCart()" class="text-3xl text-gray-300 hover:text-black">✕</button>
+            </div>
+            <div id="cart-items" class="space-y-6 overflow-y-auto flex-grow pr-2"></div>
+            <div class="border-t pt-8 mt-6">
+                <div class="flex justify-between font-black text-2xl mb-8">
+                    <span>Итого</span>
+                    <span id="cart-total" class="text-blue-600">0 ₽</span>
+                </div>
+                <button onclick="alert('Заказ оформлен!')" class="w-full bg-gray-900 text-white py-5 rounded-2xl font-bold text-lg hover:bg-black transition active:scale-95">
+                    Оформить заказ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:8000/api';
+        let cart = [];
+        let allProducts = [];
+
+        async function fetchProducts() {
+            try {
+                const response = await fetch(`${API_URL}/products`);
+                const data = await response.json();
+                allProducts = Array.isArray(data) ? data : (data.products || []);
+                renderProducts(allProducts);
+            } catch (error) {
+                document.getElementById('products-grid').innerHTML = `<p>Ошибка связи</p>`;
+            }
+        }
+
+        async function fetchCategories() {
+            try {
+                const response = await fetch(`${API_URL}/categories`);
+                const categories = await response.json();
+                const list = document.getElementById('categories-list');
+                let html = `<li id="cat-all" onclick="filterByCategory(null, 'cat-all')" class="category-item p-4 bg-blue-50 text-blue-700 rounded-2xl cursor-pointer font-bold border-l-4 border-blue-600 pl-5 mb-2">Все товары</li>`;
+                html += categories.map(c => `<li id="cat-${c.id}" onclick="filterByCategory(${c.id}, 'cat-${c.id}')" class="category-item p-4 hover:bg-gray-100 rounded-2xl cursor-pointer border-l-4 border-transparent pl-5 text-gray-500 font-medium">${c.name}</li>`).join('');
+                list.innerHTML = html;
+            } catch (e) {}
+        }
+
+        function renderProducts(products) {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = products.map(p => {
+                const name = p.name || p.title || "Товар";
+                const price = p.price || 0;
+                // Увеличенное качество картинок для больших карточек
+                const img = p.image_url || `https://loremflickr.com/600/500/product?lock=${p.id}`;
+
+                return `
+                    <div class="bg-white p-6 rounded-[32px] shadow-sm product-card border border-gray-100 flex flex-col" onclick="openProductModal(${p.id})">
+                        <img src="${img}" class="w-full h-72 object-cover rounded-[24px] mb-6" alt="">
+                        <h4 class="font-black text-2xl mb-2 text-gray-900">${name}</h4>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">${p.description || 'Описание этого великолепного товара...'}</p>
+                        <div class="flex justify-between items-center mt-auto">
+                            <span class="text-3xl font-black text-blue-600">${price} ₽</span>
+                            <button onclick="event.stopPropagation(); addToCart(${p.id}, '${name.replace(/'/g, "\\'")}', ${price})"
+                                    class="bg-gray-100 text-gray-900 w-20 h-14 rounded-2xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all font-bold text-2xl">
+                                Купить
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterByCategory(categoryId, elementId) {
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('bg-blue-50', 'text-blue-700', 'border-blue-600', 'font-bold');
+                item.classList.add('text-gray-500', 'border-transparent', 'font-medium');
+            });
+            const activeItem = document.getElementById(elementId);
+            if (activeItem) {
+                activeItem.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-600', 'font-bold');
+                activeItem.classList.remove('text-gray-500', 'border-transparent', 'font-medium');
+            }
+            const filtered = categoryId ? allProducts.filter(p => p.category_id == categoryId) : allProducts;
+            renderProducts(filtered);
+        }
+
+        function openProductModal(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            if (!product) return;
+            const name = product.name || product.title || "Товар";
+            document.getElementById('modal-img').src = product.image_url || `https://loremflickr.com/800/800/product?lock=${product.id}`;
+            document.getElementById('modal-title').innerText = name;
+            document.getElementById('modal-desc').innerText = product.description || "Великолепное качество и современный дизайн. Этот товар станет отличным дополнением к вашей коллекции и прослужит долгие годы.";
+            document.getElementById('modal-price').innerText = `${product.price} ₽`;
+            document.getElementById('modal-buy-btn').onclick = () => { addToCart(product.id, name, product.price); closeProductModal(); };
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() { document.getElementById('product-modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+
+        function addToCart(id, title, price) { cart.push({ id, title, price }); updateCartUI(); }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const itemsList = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            if (cart.length === 0) {
+                itemsList.innerHTML = '<div class="h-full flex flex-col items-center justify-center text-gray-300"><p class="text-6xl mb-4">🛒</p><p>Пусто</p></div>';
+                totalEl.innerText = '0 ₽';
+                return;
+            }
+            itemsList.innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center bg-gray-50 p-5 rounded-2xl group">
+                    <div>
+                        <p class="font-black text-gray-900">${item.title}</p>
+                        <p class="text-blue-600 font-bold">${item.price} ₽</p>
+                    </div>
+                    <button onclick="removeItem(${index})" class="text-gray-300 hover:text-red-500 transition">✕</button>
+                </div>
+            `).join('');
+            totalEl.innerText = `${cart.reduce((sum, item) => sum + item.price, 0)} ₽`;
+        }
+
+        function removeItem(index) { cart.splice(index, 1); updateCartUI(); }
+        function toggleCart() { document.getElementById('cart-modal').classList.toggle('hidden'); }
+
+        fetchProducts();
+        fetchCategories();
+    </script>
+</body>
+</html>

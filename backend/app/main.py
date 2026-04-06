@@ -14,11 +14,18 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = settings.cors_origins,
+    allow_origins=["*"], # Адрес вашего фронтенда
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+
+
+
+
+
 
 app.mount('/static', StaticFiles(directory=settings.static_dir), name='static')
 
@@ -41,3 +48,8 @@ def root():
 @app.get('/health')
 def health_check():
     return {'status': 'healthy'}
+
+
+
+
+
